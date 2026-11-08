@@ -1,0 +1,189 @@
+/**
+ * Every CSS rule the extension applies, injected once at document_start and
+ * inert until content.js puts the matching igd-* class on <html>.
+ *
+ * Toggling a feature is a classList change, so there is no stylesheet to
+ * fetch, rebuild or re-inject when settings change.
+ *
+ * Route classes set by content.js:
+ *   igd-route-home     the feed, with or without ?variant=
+ *   igd-route-direct   anywhere under /direct
+ *   igd-route-profile  a profile page
+ *
+ * data-igd-* attributes are stamped by the scanners in content.js for the
+ * cases CSS cannot express on its own, such as "the block whose heading reads
+ * Suggested for you".
+ */
+
+/* ------------------------------------------------------------------ Reels */
+
+html.igd-hide_reels a[href="/reels/"],
+html.igd-hide_reels a[href^="/reels/"],
+html.igd-hide_reels a:has(> div > svg[aria-label="Reels"]),
+html.igd-hide_reels [role="tablist"] a[href*="/reels"],
+html.igd-hide_reels [role="tablist"] > div:has(a[href*="/reels"]),
+html.igd-hide_reels article:has(a[href*="/reel/"]) {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------------- Explore */
+
+html.igd-hide_explore a[href="/explore/"],
+html.igd-hide_explore a[href^="/explore/"],
+html.igd-hide_explore a:has(> div > svg[aria-label="Explore"]) {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------------- Stories */
+
+html.igd-hide_stories_home [data-pagelet="story_tray"],
+html.igd-hide_stories_home div:has(> [data-pagelet="story_tray"]),
+html.igd-hide_stories_home [data-igd-story-tray] {
+  display: none !important;
+}
+
+/* The ring is a canvas painted behind the avatar. Hiding only the canvas
+   keeps the avatar and its link intact, which is nicer than removing the
+   whole button. */
+html.igd-hide_stories_all canvas:has(+ span img),
+html.igd-hide_stories_all canvas:has(+ span > img),
+html.igd-hide_stories_all [data-igd-story-ring] {
+  display: none !important;
+}
+
+html.igd-hide_stories_all [role="button"]:has(> canvas + span img) {
+  pointer-events: none !important;
+}
+
+/* ------------------------------------------------------------------- Feed */
+
+html.igd-hide_feed.igd-route-home main article,
+html.igd-hide_feed.igd-route-home main section > div > div > div:has(article),
+html.igd-hide_feed.igd-route-home main [role="feed"] {
+  display: none !important;
+}
+
+html.igd-hide_suggested [data-igd-suggested] {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------- Comments */
+
+html.igd-hide_comments [role="button"]:has(> div > svg[aria-label="Comment"]),
+html.igd-hide_comments button:has(svg[aria-label="Comment"]),
+html.igd-hide_comments a:has(svg[aria-label="Comment"]),
+html.igd-hide_comments span:has(> [role="button"] > div > svg[aria-label="Comment"]),
+html.igd-hide_comments form:has(textarea[aria-label*="comment" i]),
+html.igd-hide_comments section:has(> form textarea[aria-label*="comment" i]),
+html.igd-hide_comments [data-igd-comments] {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------------- Threads */
+
+html.igd-hide_threads a[href*="threads.net"],
+html.igd-hide_threads a[href*="threads.com"],
+html.igd-hide_threads a:has(svg[aria-label="Threads" i]),
+html.igd-hide_threads [aria-label="Threads" i] {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------ Notes */
+
+html.igd-hide_notes [data-igd-notes] {
+  display: none !important;
+}
+
+/* --------------------------------------------------------- Vanity metrics */
+
+html.igd-hide_vanity a[href$="/liked_by/"],
+html.igd-hide_vanity a[href$="/followers/"] span[title],
+html.igd-hide_vanity [data-igd-vanity] {
+  display: none !important;
+}
+
+/* ----------------------------------------------------- Notification badges */
+
+html.igd-hide_badges [data-igd-badge] {
+  display: none !important;
+}
+
+html.igd-gray_badges [data-igd-badge] {
+  background-color: #8e8e8e !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+/* -------------------------------------------------------------- Bandwidth */
+
+/* Requests are blocked by declarativeNetRequest in background.js. These rules
+   only stop the blocked elements from rendering as broken placeholders. */
+
+html.igd-block_videos video,
+html.igd-block_videos [data-igd-video] {
+  display: none !important;
+}
+
+html.igd-block_images img:not([src^="data:"]),
+html.igd-block_images picture,
+html.igd-block_images canvas:has(+ span img) {
+  visibility: hidden !important;
+}
+
+html.igd-block_images *:not(html):not(body) {
+  background-image: none !important;
+}
+
+/* ------------------------------------------------------------- Appearance */
+
+html.igd-grayscale img,
+html.igd-grayscale video,
+html.igd-grayscale canvas,
+html.igd-grayscale [style*="background-image"] {
+  filter: grayscale(1) !important;
+}
+
+html.igd-square *,
+html.igd-square *::before,
+html.igd-square *::after {
+  border-radius: 0 !important;
+}
+
+/* ------------------------------------------------------------------ Fonts */
+
+html.igd-font-system *,
+html.igd-font-system *::before,
+html.igd-font-system *::after {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
+}
+
+html.igd-font-serif *,
+html.igd-font-serif *::before,
+html.igd-font-serif *::after {
+  font-family: Georgia, "Iowan Old Style", "Times New Roman", serif !important;
+}
+
+html.igd-font-mono *,
+html.igd-font-mono *::before,
+html.igd-font-mono *::after {
+  font-family: "SF Mono", Menlo, Consolas, "Liberation Mono", monospace !important;
+}
+
+html.igd-font-rounded *,
+html.igd-font-rounded *::before,
+html.igd-font-rounded *::after {
+  font-family: "SF Pro Rounded", "Nunito", "Varela Round", system-ui, sans-serif !important;
+}
+
+html.igd-font-condensed *,
+html.igd-font-condensed *::before,
+html.igd-font-condensed *::after {
+  font-family: "Roboto Condensed", "Avenir Next Condensed", "Helvetica Neue", sans-serif !important;
+}
+
+html.igd-font-readable *,
+html.igd-font-readable *::before,
+html.igd-font-readable *::after {
+  font-family: "Atkinson Hyperlegible", Verdana, Tahoma, sans-serif !important;
+}
