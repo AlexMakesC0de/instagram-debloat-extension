@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Instagram Debloat</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="head">
+      <div class="head-row">
+        <h1>Instagram Debloat</h1>
+        <label class="switch" title="Turn everything off without losing your settings">
+          <input type="checkbox" id="master" />
+          <span class="track"><span class="thumb"></span></span>
+        </label>
+      </div>
+      <p class="tagline">Less to scroll, less to notice.</p>
+      <div class="presets">
+        <button type="button" id="focus" class="btn">Focus mode</button>
+        <button type="button" id="reset" class="btn btn-quiet">Reset</button>
+      </div>
+    </header>
+
+    <main id="groups" class="groups"></main>
+
+    <footer class="foot">
+      <span id="version"></span>
+      <span class="dot">&middot;</span>
+      <span>Settings stay on this device</span>
+    </footer>
+
+    <script src="../shared/features.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
